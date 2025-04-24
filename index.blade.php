@@ -1,0 +1,151 @@
+<html lang="en">
+
+<head>
+    <title>Registration Form</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ asset('./public/template/frontend_css.css') }}">
+</head>
+
+<body>
+    <header class="d-flex flex-wrap justify-content-start">
+        <a href="/" class="d-flex align-items-center text-decoration-none"></a>
+    </header>
+
+    @if (session('status'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('status') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
+    <div class="car">
+        <a href="{{ route('list') }}" class="btn btn-dark">Listing</a>
+        <a href="{{ route('blog') }}" class="btn btn-success">Blog</a>
+        <a href="{{ route('login') }}" class="btn btn-primary">Login</a>
+        <div class="card-img-overlay mt-5">
+            <div class="card center mt-5"
+                style="height:fit-content; width: 35rem; margin-left:auto; margin-right:auto;">
+                <div class="card-body">
+                    <form action="{{ URL::current() }}" method="post" class="needs-validation" novalidate>
+                        @csrf
+                        <h5 class="card-title fs-2 text-center">Registration Form</h5>
+                        <div class="mb-3">
+                            <label for="first_name" class="form-label h6">First Name<span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="first_name" name="first_name"
+                                placeholder="Enter Your First Name" required>
+                            <div class="invalid-feedback">
+                                * Please enter your first name.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="last_name" class="form-label h6">Last Name<span
+                                    class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="last_name" name="last_name"
+                                placeholder="Enter Your Last Name" required>
+                            <div class="invalid-feedback">
+                                * Please enter your last name.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label h6">Email<span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Enter Your Email" required>
+                            <div class="invalid-feedback">
+                                * Please enter a valid email address.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="mobile" class="form-label h6">Mobile<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="mobile" name="mobile"
+                                placeholder="Enter Your Mobile Number" required>
+                            <div class="invalid-feedback">
+                                * Please enter a valid mobile number (minimum 10 digits).
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="form-label h6">Status<span class="text-danger">*</span></label>
+                            <select name="status" class="form-control" id="status" required>
+                                <option value="">Choose One...</option>
+                                <option value="active">Active</option>
+                                <option value="in-active">In-Active</option>
+                                <option value="pending">Pending</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                * Please select a status.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="type" class="form-label h6">Type<span class="text-danger">*</span></label>
+                            <select name="type" class="form-control" id="type" required>
+                                <option value="">Choose One...</option>
+                                <option value="section_a">Section A</option>
+                                <option value="section_b">Section B</option>
+                                <option value="section_c">Section C</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                * Please select a status.
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="mt-2 mb-2 form-control bg-dark text-white">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom Form Validation Script -->
+    <script>
+        document.getElementById('first_name').addEventListener('blur', function() {
+            if (this.value.trim() === '') {
+                this.classList.add('is-invalid');
+            } else {
+                this.classList.remove('is-invalid');
+            }
+        });
+    </script>
+    <script>
+        document.getElementById('email').addEventListener('blur', function() {
+            if (this.value.trim() === '') {
+                this.classList.add('is-invalid');
+            } else {
+                this.classList.remove('is-invalid');
+            }
+        });
+    </script>
+    <script>
+        (function() {
+            'use strict';
+            var form = document.querySelector('.needs-validation');
+
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        })();
+    </script>
+    <!-- Alert Auto-Hide Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.querySelectorAll('.alert').forEach(alert => {
+                    alert.classList.remove('show');
+                    alert.classList.add('fade');
+                });
+            }, 3000);
+        });
+    </script>
+</body>
