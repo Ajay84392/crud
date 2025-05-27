@@ -13,17 +13,6 @@
 
 <body>
     <main>
-        <!-- Flash Messages -->
-        @if (session('flash_notification.success'))
-            <div class="alert alert-success flash-message">
-                {!! session('flash_notification.success') !!}
-            </div>
-        @endif
-        @if (session('flash_notification.error'))
-            <div class="alert alert-danger flash-message">
-                {!! session('flash_notification.error') !!}
-            </div>
-        @endif
 
         <!-- Custom Alert Container (Initially Hidden) -->
         <div id="customAlert" class="alert alert-warning alert-dismissible fade show" role="alert"
