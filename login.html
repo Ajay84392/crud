@@ -81,9 +81,14 @@
 
         const email = document.getElementById('email').value.trim();
         const password = document.getElementById('password').value.trim();
+        const contact = document.getElementById('contact').value.trim();
 
-        if (email === '' || password === '') {
-            // Show the warning alert
+        if (email === '' || password === '' || contact === '') {
+            // Update the alert message
+            document.getElementById('customAlert').innerHTML = `
+                <strong>Warning!</strong> Please fill in email, password, and contact fields.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            `;
             document.getElementById('customAlert').style.display = 'block';
         } else {
             // Here you can add actual authentication logic
@@ -93,8 +98,10 @@
     });
 
     // Optional: Close alert when clicking the X button
-    document.querySelector('.btn-close').addEventListener('click', function() {
-        document.getElementById('customAlert').style.display = 'none';
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('btn-close')) {
+            document.getElementById('customAlert').style.display = 'none';
+        }
     });
 </script>
 
