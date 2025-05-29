@@ -67,6 +67,29 @@
         </div>
     </main>
     <footer></footer>
+    <script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // stop the default form submission
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        if (email === '' || password === '') {
+            // Show the warning alert
+            document.getElementById('customAlert').style.display = 'block';
+        } else {
+            // Here you can add actual authentication logic
+            // For now, we'll just redirect to dashboard
+            window.location.href = 'dashboard.html';
+        }
+    });
+
+    // Optional: Close alert when clicking the X button
+    document.querySelector('.btn-close').addEventListener('click', function() {
+        document.getElementById('customAlert').style.display = 'none';
+    });
+</script>
+
 
     <!-- Scripts -->
 </body>
