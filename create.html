@@ -80,6 +80,28 @@
             </div>
         </div>
     </div>
+<script>
+document.getElementById('registrationForm').addEventListener('submit', function(event) {
+    let form = event.target;
+    let name = form.name.value.trim();
+    let mobile = form.mobile_number.value.trim();
+    let email = form.email_id.value.trim();
+    let office = form.select_nearest_office.value.trim();
+    let location = form.current_location.value.trim();
+
+    let missingFields = [];
+    if (!name) missingFields.push('Name');
+    if (!mobile) missingFields.push('Mobile Number');
+    if (!email) missingFields.push('Email ID');
+    if (!office) missingFields.push('Nearest Office');
+    if (!location) missingFields.push('Current Location');
+
+    if (missingFields.length > 0) {
+        event.preventDefault();  // stop form from submitting
+        alert('Please fill out the following fields:\n\n' + missingFields.join('\n'));
+    }
+});
+</script>
 
     <!-- Bootstrap JS -->
 </body>
