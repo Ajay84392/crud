@@ -66,6 +66,46 @@
             </div>
         </div>
     </main>
+    <script>
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // stop the form for custom handling
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const alertBox = document.getElementById('customAlert');
+
+    if (email === '' && password === '') {
+        alertBox.innerHTML = `
+            <strong>Warning!</strong> Please fill in both email and password.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        alertBox.style.display = 'block';
+    } else if (email === '') {
+        alertBox.innerHTML = `
+            <strong>Warning!</strong> Please enter your email.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        alertBox.style.display = 'block';
+    } else if (password === '') {
+        alertBox.innerHTML = `
+            <strong>Warning!</strong> Please enter your password.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+        alertBox.style.display = 'block';
+    } else {
+        // All good → submit the form normally
+        this.submit();
+    }
+});
+
+// Optional: close alert when clicking the X button
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('btn-close')) {
+        document.getElementById('customAlert').style.display = 'none';
+    }
+});
+</script>
+
     <footer></footer>
     
 
