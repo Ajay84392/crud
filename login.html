@@ -57,57 +57,113 @@
                                 </div>
                             </div>
                             <div class="text-center">
-<!-- <button type="submit" class="mt-3 bg-dark form-control btn btn-primary" href="dashboard">Login</button> -->
-                                                        <a class="mt-3 bg-dark form-control btn btn-primary text-white" href="dashboard">Login</a>
-
+                             <a class="mt-3 bg-dark form-control btn btn-primary text-white" href="dashboard">Login</a>
                             </div>
-                            
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // stop the form for custom handling
-
-    const email = document.getElementById('email').value.trim();
-    const password = document.getElementById('password').value.trim();
-    const alertBox = document.getElementById('customAlert');
-
-    if (email === '' && password === '') {
-        alertBox.innerHTML = `
-            <strong>Warning!</strong> Please fill in both email and password.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        `;
-        alertBox.style.display = 'block';
-    } else if (email === '') {
-        alertBox.innerHTML = `
-            <strong>Warning!</strong> Please enter your email.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        `;
-        alertBox.style.display = 'block';
-    } else if (password === '') {
-        alertBox.innerHTML = `
-            <strong>Warning!</strong> Please enter your password.
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        `;
-        alertBox.style.display = 'block';
-    } else {
-        // All good → submit the form normally
-        this.submit();
-    }
-});
-
-// Optional: close alert when clicking the X button
-document.addEventListener('click', function(event) {
-    if (event.target.classList.contains('btn-close')) {
-        document.getElementById('customAlert').style.display = 'none';
-    }
-});
-</script>
-
+        // Form validation and alert handling
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const alertBox = document.getElementById('customAlert');
+            const alertMessage = document.getElementById('alertMessage');
+            
+            // Reset form validation
+            this.classList.remove('was-validated');
+            
+            // Validate fields
+            let isValid = true;
+            
+            if (email === '') {
+                document.getElementById('email').classList.add('is-invalid');
+                isValid = false;
+            } else if (!validateEmail(email)) {
+                document.getElementById('email').classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            if (password === '') {
+                document.getElementById('password').classList.add('is-invalid');
+                isValid = false;
+            } else if (password.length < 8) {
+                document.getElementById('password').classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                // Show appropriate alert message
+                if (email === '' && password === '') {
+                    showAlert('Please enter both email and password.', 'danger');
+                } else if (email === '') {
+                    showAlert('Please enter your email address.', 'danger');
+                } else if (!validateEmail(email)) {
+                    showAlert('Please enter a valid email address.', 'danger');
+                } else if (password === '') {
+                    showAlert('Please enter your password.', 'danger');
+                } else if (password.length < 8) {
+                    showAlert('Password must be at least 8 characters long.', 'danger');
+                }
+                
+                // Add Bootstrap's was-validated class to show validation messages
+                this.classList.add('was-validated');
+                return;
+            }
+            
+            // If all validations pass
+            showAlert('Login successful! Redirecting...', 'success');
+            
+            // Submit the form after a delay (for demo purposes)
+            setTimeout(() => {
+                this.submit();
+            }, 1500);
+        });
+        
+        // Email validation function
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Show alert function
+        function showAlert(message, type) {
+            const alertBox = document.getElementById('customAlert');
+            const alertMessage = document.getElementById('alertMessage');
+            
+            // Set alert content and style
+            alertMessage.textContent = message;
+            alertBox.className = `alert alert-${type} alert-dismissible fade show`;
+            alertBox.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Close alert when clicking X
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('btn-close')) {
+                document.getElementById('customAlert').style.display = 'none';
+            }
+        });
+        
+        // Toggle password visibility
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.classList.toggle('bi-eye');
+            this.classList.toggle('bi-eye-slash');
+        });
+    </script>
     <footer></footer>
     
 
